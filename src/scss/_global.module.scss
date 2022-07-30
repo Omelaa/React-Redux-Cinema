@@ -1,7 +1,11 @@
+@import "vars.module";
+
 body {
   font-size: 16px;
-  line-height: 1.8;
-  background-color: #ffffff;
+  line-height: 1.2;
+  color: $default;
+  @extend %roboto-regular-400;
+  background-color: #1D1D1D;
 }
 
 a {
@@ -13,7 +17,77 @@ button {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1675px;
   padding: 0 15px;
   margin: 0 auto;
+}
+
+.title {
+  @extend %roboto-medium-500;
+}
+
+.button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  color: $default;
+  line-height: 1.3;
+  max-width: 200px;
+  border-radius: 40px;
+  border-color: #0FEFFD;
+  background-color: inherit;
+  @extend %roboto-medium-500;
+  box-shadow: 0 16px 16px 4px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.5s;
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.genre {
+  color: $categoryColor;
+  font-size: 14px;
+  padding: 5px 8px;
+  border-radius: 0 8px;
+  background: rgba(29, 29, 29, 0.5);
+  max-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category {
+  padding: 25px 0;
+  @extend %roboto-medium-500;
+  font-size: 18px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.5s;
+
+  &::after {
+    content: '';
+    width: 8px;
+    left: 15px;
+    top: 1px;
+    height: 12px;
+    position: relative;
+    transition: transform 0.5s;
+    background-repeat: no-repeat;
+    background-image: url("../../src/assets/images/icons/arrow.svg");
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 0.5;
+
+    &::after {
+      transform: translateX(5px);
+    }
+  }
+
 }

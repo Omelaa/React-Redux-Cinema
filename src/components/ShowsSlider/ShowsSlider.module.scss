@@ -1,0 +1,44 @@
+@import "src/components/ReleasesSlider/ReleasesSlider.module";
+
+
+.shows {
+
+  &__movies {
+
+    :global(.swiper-button-prev),
+    :global(.swiper-button-next) {
+      color: $default;
+      transition: opacity 0.5s;
+      z-index: 10;
+
+      &::after {
+        font-size: 16px;
+        font-weight: 800;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        opacity: 0.5;
+      }
+    }
+
+    :global(.swiper-button-next) {
+      right: 75px;
+    }
+  }
+
+  &__movie {
+    max-width: 500px;
+    height: 735px
+  }
+
+  &__title {
+    font-size: 32px;
+  }
+
+  &__genre {
+    max-width: 130px;
+    font-size: 16px;
+  }
+}
