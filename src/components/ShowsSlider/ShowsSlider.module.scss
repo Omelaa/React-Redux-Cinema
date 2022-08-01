@@ -30,7 +30,9 @@
 
   &__movie {
     max-width: 500px;
-    height: 735px
+    height: 735px;
+    background-size: cover;
+    padding: 15px;
   }
 
   &__title {

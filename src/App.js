@@ -105,6 +105,44 @@ function App() {
             <main>
                 <MainSlider/>
                 <ReleasesSlider/>
+                <section className={css.movies}>
+                    <div className={css.container}>
+                        <div className={css.movies__inner}>
+                            <h3 className={`${css.movies__title} ${css.category}`}>
+                                All Movies
+                            </h3>
+                            <ul className={css.filter}>
+                                <li className={`${css.filter__item} ${css.genre}`}>
+                                    Fantasy
+                                </li>
+                                <li className={`${css.filter__item} ${css.genre}`}>
+                                    Action
+                                </li>
+                                <li className={`${css.filter__item} ${css.genre}`}>
+                                    Happy
+                                </li>
+                                <li className={`${css.filter__item} ${css.genre}`}>
+                                    Fire
+                                </li>
+                                <li className={`${css.filter__item} ${css.genre}`}>
+                                    Heroes
+                                </li>
+                            </ul>
+                        </div>
+                        <ul className={css.movies__items}>
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                            {/*<ReleasesSlide img={img} name={"123"} genre={'ekshon'} rating={5}/>*/}
+                        </ul>
+                    </div>
+                </section>
                 <ShowsSlider/>
             </main>
         </div>

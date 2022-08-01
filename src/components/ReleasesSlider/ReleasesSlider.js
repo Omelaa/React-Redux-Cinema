@@ -1,3 +1,6 @@
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {Autoplay, Navigation} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import css from "./ReleasesSlider.module.scss";
@@ -5,17 +8,21 @@ import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 
-import one from "../../assets/images/releases/wonder.png";
-import two from "../../assets/images/releases/batman.png";
-import three from "../../assets/images/releases/3.png";
-import four from "../../assets/images/releases/4.png";
-import five from "../../assets/images/releases/5.png";
-import six from "../../assets/images/releases/6.png";
-
+import {movieActions} from "../../redux";
 import {ReleasesSlide} from "../ReleasesSlide/ReleasesSlide";
-import {Autoplay, Navigation} from "swiper";
+import {moviesCategories} from "../../services";
+
 
 const ReleasesSlider = () => {
+    const dispatch = useDispatch();
+    const {movies} = useSelector(state => state.movie);
+
+    const {results} = movies;
+
+    useEffect(() => {
+        dispatch(movieActions.getAll({moviesType: moviesCategories.discover}));
+    }, [dispatch]);
+
     return (
         <section className={css.releases}>
             <div className={css.container}>
@@ -24,37 +31,20 @@ const ReleasesSlider = () => {
                     <Swiper
                         slidesPerView={5.5}
                         spaceBetween={60}
-                        navigation={true}
                         loop={true}
+                        navigation={true}
                         autoplay={{
                             delay: 2500,
                         }}
                         modules={[Navigation, Autoplay]}
                     >
-                        <SwiperSlide>
-                            <ReleasesSlide img={one} name={"Wonder Woman 1984"} genre={"Fantasy"} rating={3}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={two} name={"Zack Snyder's Justice League"} genre={"Fantasy"} rating={4}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={three} name={"Mortal Kombat"} genre={"Fantasy"} rating={5}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={four} name={"The Courier"} genre={"Drama"} rating={3}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={five} name={"Thunder Force"} genre={"Action"} rating={5}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={six} name={'Peter Rabbit 2: The Runaway'} genre={'Family'} rating={4}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={two} name={"Zack Snyder's Justice League"} genre={"Fantasy"} rating={3}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ReleasesSlide img={three} name={"Mortal Kombat"} genre={"Fantasy"} rating={3}/>
-                        </SwiperSlide>
+                        {
+                            results && results.map((movie) =>
+                                <SwiperSlide key={movie} virtualIndex={movie.id}>
+                                    <ReleasesSlide key={movie.id} movie={movie}/>
+                                </SwiperSlide>
+                            )
+                        }
                     </Swiper>
                 </ul>
             </div>

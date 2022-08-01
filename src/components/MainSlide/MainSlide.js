@@ -2,27 +2,25 @@ import {RatingForMovie} from "../RatingForMovie/RatingForMovie";
 
 import css from "../MainSlider/MainSlider.module.scss";
 
-import background from "../../assets/images/background/mainBackground.png";
+const MainSlide = ({movie: {backdrop_path, original_title, overview, vote_average, genre_ids}}) => {
+    const img = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+    const rating = vote_average / 2;
 
-const MainSlide = () => {
     return (
         <div className={css.mainScreen__background}
-             style={{backgroundImage: `url(${background})`}}>
+             style={{backgroundImage: `url(${img})`}}>
             <div className={css.container}>
                 <div className={css.mainScreen__info}>
                     <span className={`${css.genre}`}>
-                        Science Fiction
+                       {genre_ids}
                     </span>
-                    <RatingForMovie value={5}/>
+                    <RatingForMovie value={rating}/>
                     <h1 className={`${css.mainScreen__title} ${css.title}`}>
-                        Godzilla vs. Kong
+                        {original_title}
                     </h1>
                     <div className={css.mainScreen__description}>
                         <p>
-                            In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla
-                            and
-                            Kong on a collision course that will see the two most powerful forces of nature on the
-                            planet collide in a spectacular battle for the ages.
+                            {overview}
                         </p>
                     </div>
                     <button className={`${css.button}`} type={'button'}>

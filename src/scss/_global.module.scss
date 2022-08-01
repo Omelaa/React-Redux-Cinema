@@ -89,5 +89,10 @@ button {
       transform: translateX(5px);
     }
   }
+}
 
+.rating {
+  :global(.MuiSvgIcon-root) {
+    fill: white;
+  }
 }
