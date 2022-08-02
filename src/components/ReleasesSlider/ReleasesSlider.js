@@ -1,26 +1,29 @@
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {Autoplay, Navigation} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {useDispatch, useSelector} from "react-redux";
 
-import css from "./ReleasesSlider.module.scss";
 import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
+import css from "./ReleasesSlider.module.scss";
 
 import {movieActions} from "../../redux";
-import {ReleasesSlide} from "../ReleasesSlide/ReleasesSlide";
+import {genreActions} from "../../redux";
 import {moviesCategories} from "../../services";
+import {MovieCard} from "../MovieCard/MovieCard";
 
 
 const ReleasesSlider = () => {
     const dispatch = useDispatch();
     const {movies} = useSelector(state => state.movie);
+    const {genres} = useSelector(state => state.genre);
 
     const {results} = movies;
 
     useEffect(() => {
-        dispatch(movieActions.getAll({moviesType: moviesCategories.discover}));
+        dispatch(genreActions.getAll());
+        dispatch(movieActions.getAll({moviesType: moviesCategories.moviesFor('upcoming')}));
     }, [dispatch]);
 
     return (
@@ -36,12 +39,12 @@ const ReleasesSlider = () => {
                         autoplay={{
                             delay: 2500,
                         }}
-                        modules={[Navigation, Autoplay]}
-                    >
+                        modules={[Navigation, Autoplay]}>
+
                         {
-                            results && results.map((movie) =>
-                                <SwiperSlide key={movie} virtualIndex={movie.id}>
-                                    <ReleasesSlide key={movie.id} movie={movie}/>
+                            genres && results && results.map((movie) =>
+                                <SwiperSlide key={movie.id} virtualIndex={movie.id}>
+                                    <MovieCard key={movie.id} movie={movie} genres={genres.genres}/>
                                 </SwiperSlide>
                             )
                         }

@@ -1,0 +1,25 @@
+@import "../../App.module";
+
+
+.search {
+  max-width: 350px;
+
+  &__input {
+    padding: 10px 25px 10px 15px;
+    background-color: rgb(58, 58, 58);
+    border: 1px solid $categoryColor;
+    max-width: 350px;
+    width: 100%;
+    outline: none;
+    color: $default;
+    position: relative;
+  }
+  &__btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+  }
+
+}

@@ -1,40 +1,51 @@
-import {Swiper, SwiperSlide} from "swiper/react";
+import {useEffect} from "react";
 import {Navigation} from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {useDispatch, useSelector} from "react-redux";
 
 import css from "./ShowsSlider.module.scss";
 
-import one from '../../assets/images/shows/1.png';
-import two from '../../assets/images/shows/2.png';
-import three from '../../assets/images/shows/33.png';
-
-import {ShowsSlide} from "../ShowsSlide/ShowsSlide";
+import {genreActions, movieActions} from "../../redux";
+import {MovieCard} from "../MovieCard/MovieCard";
+import {moviesCategories} from "../../services";
 
 const ShowsSlider = () => {
+    const dispatch = useDispatch();
+    const {movies} = useSelector(state => state.movie);
+    const {genres} = useSelector(state => state.genre);
+
+    const {results} = movies;
+
+    useEffect(() => {
+        dispatch(genreActions.getAll());
+        dispatch(movieActions.getAll({moviesType: moviesCategories.moviesFor('now_playing')}));
+    }, [dispatch]);
+
     return (
         <section className={css.shows}>
             <div className={css.container}>
                 <a className={css.category} href="#">
-                    Featured TV shows
+                    Now playing
                 </a>
                 <ul className={`${css.shows__movies} ${css.releases__movies}`}>
                     <Swiper
-                            loop={true}
-                            navigation={true}
-                            slidesPerView={3.1}
-                            modules={[Navigation]}>
+                        loop={true}
+                        navigation={true}
+                        slidesPerView={3.1}
+                        modules={[Navigation]}>
 
-                        <SwiperSlide>
-                            <ShowsSlide img={one} name={"Game of thrones"} genre={"Sci-Fi & Fantasy"} rating={4}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ShowsSlide img={two} name={"The Falcon and the Winter Soldier"} genre={"Sci-Fi & Fantasy"} rating={3}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ShowsSlide img={three} name={"WandaVision"} genre={"Sci-Fi & Fantasy"} rating={5}/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ShowsSlide img={two} name={"The Falcon and the Winter Soldier"} genre={"Sci-Fi & Fantasy"} rating={3}/>
-                        </SwiperSlide>
+                        {
+                            results && results.map((movie) =>
+                                <SwiperSlide key={movie.id} virtualIndex={movie.id}>
+                                    <MovieCard key={movie.id}
+                                               movie={movie}
+                                               styleCard={css.shows__movie}
+                                               styleTitle={css.shows__title}
+                                               styleGenre={css.shows__genre}
+                                               genres={genres.genres}/>
+                                </SwiperSlide>
+                            )
+                        }
                     </Swiper>
                 </ul>
             </div>

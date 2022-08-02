@@ -1,0 +1,60 @@
+@import "../../App.module";
+
+.movies {
+
+  &__inner{
+    padding: 25px 10px;
+  }
+
+  &__title {
+    font-size: 24px;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+
+      &::after {
+        transform: translateX(0);
+      }
+    }
+
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 290px);
+    grid-template-rows: repeat(auto-fill, 440px);
+    grid-gap: 35px 20px;
+    justify-content: center;
+  }
+
+  &__item{
+    box-shadow: 0 0 22px 4px rgba(0, 232, 220, 0.27);
+  }
+
+  &__wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+}
+
+.filter{
+  display: flex;
+  grid-gap: 20px;
+
+  &__item{
+    font-size: 20px;
+    border: 2px solid $categoryColor;
+    transition: opacity 0.5s;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:active{
+      opacity: 0.5;
+    }
+  }
+}
