@@ -11,17 +11,18 @@ import css from "./MainSlider.module.scss";
 import {moviesCategories} from "../../services";
 import {MainSlide} from "../MainSlide/MainSlide";
 import {genreActions, movieActions} from "../../redux";
+import {Skeleton} from "../Skeleton/Skeleton";
 
 const MainSlider = () => {
     const dispatch = useDispatch();
-    const {movies} = useSelector(state => state.movie);
+    const {moviesTopRate, isLoading} = useSelector(state => state.movie);
     const {genres} = useSelector(state => state.genre);
 
-    const {results} = movies;
+    const {results} = moviesTopRate;
 
     useEffect(() => {
         dispatch(genreActions.getAll());
-        dispatch(movieActions.getAll({moviesType: moviesCategories.moviesFor('top_rated')}));
+        dispatch(movieActions.getAllTopRate({moviesType: moviesCategories.moviesFor('top_rated')}));
     }, [dispatch]);
 
     return (
@@ -42,7 +43,11 @@ const MainSlider = () => {
                     {
                         results && results.map((movie) =>
                             <SwiperSlide key={movie.id} virtualIndex={movie.id}>
-                                <MainSlide key={movie.id} movie={movie} genres={genres.genres}/>
+                                {isLoading ?
+                                    <Skeleton key={movie.id} amount={1} styleCard={css.mainScreen__skeleton}/>
+                                    :
+                                    <MainSlide key={movie.id} movie={movie} genres={genres.genres}/>
+                                }
                             </SwiperSlide>
                         )
                     }

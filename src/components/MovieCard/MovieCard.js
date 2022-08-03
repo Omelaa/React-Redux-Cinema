@@ -10,7 +10,6 @@ const MovieCard = ({
                        movie: {title, vote_average, poster_path, genre_ids},
                        genres
                    }) => {
-
     const img = `https://image.tmdb.org/t/p/w500/${poster_path}`;
     const rating = vote_average / 2;
 

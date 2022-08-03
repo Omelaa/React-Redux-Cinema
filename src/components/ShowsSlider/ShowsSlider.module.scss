@@ -28,12 +28,19 @@
     }
   }
 
-  &__movie {
+  &__movie,
+  &__skeleton{
     max-width: 500px;
     height: 735px;
     background-size: cover;
     padding: 15px;
   }
+
+  &__skeleton{
+    background-color: rgb(58, 58, 58);
+    box-shadow: 0 0 15px 4px rgba(58, 58, 58, 0.27);
+  }
+
 
   &__title {
     font-size: 32px;

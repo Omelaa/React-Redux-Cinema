@@ -1,28 +1,68 @@
+import {Pagination} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import css from "./MoviesList.module.scss";
 
 import {Search} from "../Search/Search";
-import {movieActions} from "../../redux";
-import {moviesCategories} from "../../services";
+import {filterActions} from "../../redux";
+import {Skeleton} from "../Skeleton/Skeleton";
 import {MovieCard} from "../MovieCard/MovieCard";
+import {moviesCategories, movieService} from "../../services";
+import {GenresFilter} from "../GenresFilter/GenresFilter";
 
 const MoviesList = () => {
     const dispatch = useDispatch();
     const {genres} = useSelector(state => state.genre);
-    const {searchValue} = useSelector(state => state.filter);
-    const {movies} = useSelector(state => state.movie);
+    const {searchValue, totalPages, currentPage, currentGenre} = useSelector(state => state.filter);
 
     const [foundMovies, setFoundMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const {results} = movies;
+    const {results, total_pages} = foundMovies;
+
+    const getSearchMovies = async (event) => {
+        event?.preventDefault();
+        if (searchValue) {
+            try {
+                const {data} = await movieService.search(moviesCategories.search(searchValue, currentPage));
+                setFoundMovies(data);
+                dispatch(filterActions.setTotalPages(data.total_pages));
+
+            } catch (e) {
+                alert('error!');
+            }
+        }
+    };
+
+    const getMovies = async () => {
+        try {
+            setIsLoading(true);
+            const {data} = await movieService.getAll(moviesCategories.moviesFor(
+                'popular',
+                currentGenre,
+                currentPage
+            ));
+            setFoundMovies(data);
+            setIsLoading(false);
+        } catch (e) {
+            alert('error!');
+        }
+    };
 
     useEffect(() => {
-        dispatch(movieActions.getAll({moviesType: moviesCategories.discover}));
-    }, [dispatch, searchValue]);
+        getMovies();
+        getSearchMovies();
+        console.log(currentPage);
+    }, [searchValue, currentPage, currentGenre]);
 
-    const filteredMovies = foundMovies.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase()))
+    useEffect(() => {
+        if (total_pages) {
+            dispatch(filterActions.setTotalPages(total_pages));
+        }
+    }, [total_pages]);
+
+    const filteredMovies = results && results.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase()))
 
     return (
         <section className={css.movies}>
@@ -32,47 +72,31 @@ const MoviesList = () => {
                         All Movies
                     </h3>
                     <div className={css.movies__wrapper}>
-                        <ul className={css.filter}>
-                            <li className={`${css.filter__item} ${css.genre}`}>
-                                Fantasy
-                            </li>
-                            <li className={`${css.filter__item} ${css.genre}`}>
-                                Action
-                            </li>
-                            <li className={`${css.filter__item} ${css.genre}`}>
-                                Happy
-                            </li>
-                            <li className={`${css.filter__item} ${css.genre}`}>
-                                Fire
-                            </li>
-                            <li className={`${css.filter__item} ${css.genre}`}>
-                                Heroes
-                            </li>
-                        </ul>
-                        <Search setFoundMovies={setFoundMovies}/>
+                        <GenresFilter/>
+                        <Search getSearchMovies={getSearchMovies}/>
                     </div>
                 </div>
                 <ul className={css.movies__items}>
-                    {foundMovies.length > 0 ?
-                        foundMovies && filteredMovies.map(movie =>
-                            <MovieCard
-                                key={movie.id}
-                                movie={movie}
-                                genres={genres.genres}
-                                styleCard={css.movies__item}
-                            />
-                        )
-                        :
-                        results && results.map(movie =>
-                            <MovieCard
-                                key={movie.id}
-                                movie={movie}
-                                genres={genres.genres}
-                                styleCard={css.movies__item}
-                            />
-                        )
+                    {
+                        isLoading ?
+                            <Skeleton key={currentGenre} amount={20}/>
+                            :
+                            results && filteredMovies.map((movie) =>
+                                <MovieCard
+                                    key={movie.id}
+                                    movie={movie}
+                                    genres={genres.genres}
+                                    styleCard={css.movies__item}
+                                />)
                     }
                 </ul>
+                <Pagination
+                    count={totalPages}
+                    variant="outlined"
+                    page={currentPage}
+                    shape="rounded"
+                    onChange={(_, num) => dispatch(filterActions.setCurrentPage(num))}
+                />
             </div>
         </section>
     );

@@ -3,12 +3,36 @@ import {movieService} from "../../services";
 
 
 const initialState = {
-    movies: [],
+    moviesTopRate: [],
+    moviesNowPlaying: [],
+    moviesUpcoming: [],
     isLoading: false
 };
 
-const getAll = createAsyncThunk(
-    'movieSlice/getAll',
+const getAllTopRate = createAsyncThunk(
+    'movieSlice/getAllTopRate',
+    async ({moviesType}, {rejectWithValue}) => {
+        try {
+            const {data} = await movieService.getAll(moviesType);
+            return data;
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
+const getAllNowPlaying = createAsyncThunk(
+    'movieSlice/getAllNowPlaying',
+    async ({moviesType}, {rejectWithValue}) => {
+        try {
+            const {data} = await movieService.getAll(moviesType);
+            return data;
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
+const getAllUpcoming = createAsyncThunk(
+    'movieSlice/getAllUpcoming',
     async ({moviesType}, {rejectWithValue}) => {
         try {
             const {data} = await movieService.getAll(moviesType);
@@ -37,19 +61,39 @@ const movieSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAll.pending, (state) => {
+            .addCase(getAllTopRate.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getAll.fulfilled, (state, action) => {
-                state.movies = action.payload;
+            .addCase(getAllTopRate.fulfilled, (state, action) => {
+                state.moviesTopRate = action.payload;
                 state.isLoading = false;
             })
-            .addCase(getAll.rejected, (state) => {
+            .addCase(getAllTopRate.rejected, (state) => {
                 state.isLoading = false;
             })
-            // .addCase(searchMovies.fulfilled, (state, action) => {
-            //     state.foundMovies = action.payload;
-            // })
+            .addCase(getAllNowPlaying.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllNowPlaying.fulfilled, (state, action) => {
+                state.moviesNowPlaying = action.payload;
+                state.isLoading = false;
+            })
+            .addCase(getAllNowPlaying.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getAllUpcoming.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllUpcoming.fulfilled, (state, action) => {
+                state.moviesUpcoming = action.payload;
+                state.isLoading = false;
+            })
+            .addCase(getAllUpcoming.rejected, (state) => {
+                state.isLoading = false;
+            })
+        // .addCase(searchMovies.fulfilled, (state, action) => {
+        //     state.foundMovies = action.payload;
+        // })
     }
 });
 
@@ -57,8 +101,9 @@ const movieSlice = createSlice({
 const {reducer: movieReducer, actions: {}} = movieSlice;
 
 const movieActions = {
-    getAll,
-    // searchMovies
+    getAllNowPlaying,
+    getAllTopRate,
+    getAllUpcoming
 };
 
 export {movieReducer, movieActions};
