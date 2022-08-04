@@ -1,0 +1,69 @@
+@import "../../App.module";
+
+
+.movie {
+  padding: 125px 0 50px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+  color: $default;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 50px;
+    background-color: rgba(29, 29, 29, 0.7);
+    height: 75vh;
+    padding: 50px;
+  }
+
+  &__video {
+    transition: opacity 0.5s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__info {
+    max-width: 465px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+  }
+
+  &__title {
+    font-size: 32px;
+  }
+
+  &__date,
+  &__country,
+  &__more,
+  &__genre {
+    display: flex;
+    grid-gap: 10px;
+    align-items: center;
+  }
+
+  &__line {
+    position: relative;
+
+    &:not(:last-child) {
+      &::after {
+        content: '|';
+        position: absolute;
+        right: -7px;
+        top: -1px;
+      }
+    }
+
+    &:last-child {
+      &::after {
+        content: '.';
+      }
+    }
+  }
+}

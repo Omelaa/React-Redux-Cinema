@@ -8,14 +8,14 @@
 
   &__input {
     padding: 10px 25px 10px 15px;
-    background-color: rgb(58, 58, 58);
+    background-color: var(--input);
     border: 1px solid $categoryColor;
     max-width: 350px;
     width: 100%;
     outline: none;
-    color: $default;
+    color: var(--text-primary);
     position: relative;
-    transition: opacity 0.5s;
+    transition: opacity 0.5s, color 0.5s, background-color 0.5s;
 
     &:hover {
       opacity: 0.5;

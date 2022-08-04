@@ -2,8 +2,9 @@ import {RatingForMovie} from "../RatingForMovie/RatingForMovie";
 
 import css from "../MainSlider/MainSlider.module.scss";
 import {GenreBadge} from "../GenreBadge/GenreBadge";
+import {Link} from "react-router-dom";
 
-const MainSlide = ({movie: {backdrop_path, original_title, overview, vote_average, genre_ids}, genres}) => {
+const MainSlide = ({movie: {id, backdrop_path, original_title, overview, vote_average, genre_ids}, genres}) => {
     const img = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
     const rating = vote_average / 2;
 
@@ -23,7 +24,9 @@ const MainSlide = ({movie: {backdrop_path, original_title, overview, vote_averag
                         </p>
                     </div>
                     <button className={`${css.button}`} type={'button'}>
-                        Watch now
+                       <Link to={`movie/${id}`}>
+                            Watch Now
+                       </Link>
                     </button>
                 </div>
             </div>

@@ -3,9 +3,10 @@
 body {
   font-size: 16px;
   line-height: 1.2;
-  color: $default;
+  transition: background-color 0.5s, color 0.5s;
+  color: var(--text-primary);
   @extend %roboto-regular-400;
-  background-color: #1D1D1D;
+  background-color: var(--background);
 }
 
 a {
@@ -24,6 +25,7 @@ button {
 
 .title {
   @extend %roboto-medium-500;
+  color: $default;
 }
 
 .button {

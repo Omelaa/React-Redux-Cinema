@@ -1,11 +1,16 @@
+import {Link} from 'react-router-dom';
+
 import css from "./Header.module.scss";
 
-const Header = () => {
+import sun from '../../assets/images/icons/sun.png'
+import moon from '../../assets/images/icons/moon.png'
+
+const Header = ({switchTheme, theme}) => {
     return (
         <header className={css.header}>
             <div className={css.container}>
                 <div className={css.header__inner}>
-                    <a className={css.header__logo} href={"#"}>
+                    <Link className={css.header__logo} to={"/"}>
                         <svg width="56" height="56" viewBox="0 0 56 56" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0_712_658)">
@@ -71,9 +76,9 @@ const Header = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                    </a>
+                    </Link>
                     <nav className={css.header__nav}>
-                        <a className={css.header__icon} href="#">
+                        <div className={css.header__icon}>
                             <svg width="20" height="22" viewBox="0 0 20 22" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd"
@@ -84,8 +89,9 @@ const Header = () => {
                                     d="M19 21.1492C17.6517 17.335 14.0455 14.785 10 14.785C5.9545 14.785 2.34834 17.335 1 21.1492"
                                     stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
-                        </a>
-                        <a className={css.header__icon} href="#">
+                            <span className={css.header__user}>Alex</span>
+                        </div>
+                        <Link className={css.header__icon} to="/">
                             <svg width="20" height="20" viewBox="0 0 18 18" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd"
@@ -93,7 +99,10 @@ const Header = () => {
                                       stroke="white" strokeWidth="1.5" strokeLinecap="round"
                                       strokeLinejoin="round"/>
                             </svg>
-                        </a>
+                        </Link>
+                        <button onClick={switchTheme}>
+                            <img src={theme === 'light' ? sun : moon} alt=""/>
+                        </button>
                     </nav>
                 </div>
             </div>

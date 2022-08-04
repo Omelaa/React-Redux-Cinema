@@ -21,14 +21,12 @@ const MoviesList = () => {
 
     const {results, total_pages} = foundMovies;
 
-    const getSearchMovies = async (event) => {
-        event?.preventDefault();
+    const getSearchMovies = async () => {
         if (searchValue) {
             try {
                 const {data} = await movieService.search(moviesCategories.search(searchValue, currentPage));
                 setFoundMovies(data);
                 dispatch(filterActions.setTotalPages(data.total_pages));
-
             } catch (e) {
                 alert('error!');
             }
@@ -73,7 +71,7 @@ const MoviesList = () => {
                     </h3>
                     <div className={css.movies__wrapper}>
                         <GenresFilter/>
-                        <Search getSearchMovies={getSearchMovies}/>
+                        <Search/>
                     </div>
                 </div>
                 <ul className={css.movies__items}>
