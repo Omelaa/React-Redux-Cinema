@@ -7,13 +7,26 @@
     flex-direction: column;
     height: 100vh;
     color: gray;
+    grid-gap: 10px;
   }
 
   &__404 {
     font-size: 80px;
   }
 
-  &__not {
+  &__not,
+  &__back {
     font-size: 32px;
+  }
+
+  &__back {
+    border: 1px solid gray;
+    padding: 10px;
+    background-color: rgba(128, 128, 128, 0.18);
+    transition: opacity 0.5s;
+    
+    &:hover {
+      opacity: 0.5;
+    }
   }
 }

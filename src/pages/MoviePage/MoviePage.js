@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 
 import css from './MoviePage.module.scss';
 
@@ -8,33 +8,40 @@ import {RatingForMovie} from "../../components";
 
 const MoviePage = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
+
     const [movie, setMovie] = useState();
     const [video, setVideo] = useState([]);
 
     const rating = movie && movie.vote_average / 2;
     const img = `https://image.tmdb.org/t/p/original/${movie && movie.backdrop_path}`;
 
+    const movies = movie && movie;
+
+
     useEffect(() => {
-        const fetchMovie = async () => {
+
+        const fetchVideo = async () => {
             try {
-                const {data} = await movieService.getById(id);
-                setMovie(data);
+                const {data} = await movieService.getVideo(id);
+                await setVideo(data.results);
             } catch (e) {
                 alert('error!');
             }
         };
 
-        const fetchVideo = async () => {
+        const fetchMovie = async () => {
             try {
-                const {data} = await movieService.getVideo(id);
-                setVideo(data.results);
+                const {data} = await movieService.getById(id);
+                await setMovie(data);
             } catch (e) {
                 alert('error!');
             }
         };
-        fetchMovie();
+
         fetchVideo();
-    }, [id, movie, video]);
+        fetchMovie();
+    }, [id]);
 
     if (!movie) {
         return 'loading...'
@@ -42,54 +49,70 @@ const MoviePage = () => {
 
     return (
         <>
-            <section className={css.movie} style={{backgroundImage: `url(${img})`}}>
-                <div className={css.container}>
-                    <div className={css.movie__wrapper}>
-                        <div className={css.movie__video}>
-                            <iframe width={720} height={405} src={`https://www.youtube.com/embed/${video[0].key}`} title="YouTube
-                                    video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write;
-                                    encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
-                            </iframe>
-                        </div>
-                        <div className={css.movie__info}>
-                            <h3 className={css.movie__title}>
-                                {movie.title}
-                            </h3>
-                            <div className={css.movie__date}>
-                                <span className={css.movie__line}>Year: {movie.release_date}</span>
-                                <span className={css.movie__line}>Time: {movie.runtime} min</span>
-                                <span className={css.movie__line}>Adult: {movie.adult ? '18+' : '12+'}</span>
-                            </div>
-                            <div className={css.movie__more}>
-                                <span className={css.movie__country}>Countries:</span>
-                                {
-                                    movie.production_countries.map((country, index) =>
-                                        <span className={css.movie__line} key={index}>
+            {
+                video.length !== 0 ?
+                    <section className={css.movie} style={{backgroundImage: `url(${img})`}}>
+                        <div className={css.container}>
+                            <div className={css.movie__wrapper}>
+                                <div className={css.movie__video}>
+                                    {video[0].key && video ?
+                                        <iframe width={720} height={405}
+                                                src={`https://www.youtube.com/embed/${video[0].key}`}
+                                                title="YouTube
+                                                 video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write;
+                                                 encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+                                        </iframe>
+                                        :
+                                        <iframe width={720} height={405}
+                                                src={'https://www.youtube.com/embed/aDm5WZ3QiIE'}
+                                                title="YouTube
+                                                video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write;
+                                                encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+                                        </iframe>
+                                    }
+                                </div>
+                                <div className={css.movie__info}>
+                                    <h3 className={css.movie__title}>
+                                        {movies.title}
+                                    </h3>
+                                    <div className={css.movie__date}>
+                                        <span className={css.movie__line}>Year: {movies.release_date}</span>
+                                        <span className={css.movie__line}>Time: {movies.runtime} min</span>
+                                        <span className={css.movie__line}>Adult: {movies.adult ? '18+' : '12+'}</span>
+                                    </div>
+                                    <div className={css.movie__more}>
+                                        <span className={css.movie__country}>Countries:</span>
+                                        {
+                                            movies.production_countries.map((country, index) =>
+                                                    <span className={css.movie__line} key={index}>
                                                 {country.iso_3166_1}
                                         </span>
-                                    )
-                                }
-                            </div>
-                            <div className={css.movie__more}>
-                                <span className={css.movie__genre}>Genres:</span>
-                                {
-                                    movie.genres.map(genre =>
-                                        <span className={css.movie__line} key={genre.id}>
+                                            )
+                                        }
+                                    </div>
+                                    <div className={css.movie__more}>
+                                        <span className={css.movie__genre}>Genres:</span>
+                                        {
+                                            movies.genres.map(genre =>
+                                                    <span className={css.movie__line} key={genre.id}>
                                             {genre.name}
                                         </span>
-                                    )
-                                }
-                            </div>
-                            <RatingForMovie value={rating}/>
-                            <div className={"movie__overview"}>
-                                <p>
-                                    {movie.overview}
-                                </p>
+                                            )
+                                        }
+                                    </div>
+                                    <RatingForMovie value={rating}/>
+                                    <div className={"movie__overview"}>
+                                        <p>
+                                            {movies.overview}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
+                    :
+                    navigate("*", {replace: true})
+            }
         </>
     );
 };

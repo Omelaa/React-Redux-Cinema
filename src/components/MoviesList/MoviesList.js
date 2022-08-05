@@ -51,7 +51,6 @@ const MoviesList = () => {
     useEffect(() => {
         getMovies();
         getSearchMovies();
-        console.log(currentPage);
     }, [searchValue, currentPage, currentGenre]);
 
     useEffect(() => {
@@ -77,7 +76,9 @@ const MoviesList = () => {
                 <ul className={css.movies__items}>
                     {
                         isLoading ?
-                            <Skeleton key={currentGenre} amount={20}/>
+                            results && filteredMovies.map((movie) =>
+                            <Skeleton key={movie.id} amount={20}/>
+                            )
                             :
                             results && filteredMovies.map((movie) =>
                                 <MovieCard

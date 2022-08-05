@@ -41,10 +41,10 @@ const MainSlider = () => {
                     modules={[Pagination, Navigation, Autoplay]}
                 >
                     {
-                        results && results.map((movie) =>
+                        results && results.map((movie, index) =>
                             <SwiperSlide key={movie.id} virtualIndex={movie.id}>
                                 {isLoading ?
-                                    <Skeleton key={movie.id} amount={1} styleCard={css.mainScreen__skeleton}/>
+                                    <Skeleton key={index} amount={1} styleCard={css.mainScreen__skeleton}/>
                                     :
                                     <MainSlide key={movie.id} movie={movie} genres={genres.genres}/>
                                 }
