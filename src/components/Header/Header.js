@@ -100,8 +100,8 @@ const Header = ({switchTheme, theme}) => {
                                       strokeLinejoin="round"/>
                             </svg>
                         </Link>
-                        <button onClick={switchTheme}>
-                            <img src={theme === 'light' ? sun : moon} alt=""/>
+                        <button className={css.header__btn} onClick={switchTheme}>
+                            <img width={35} height={35} src={theme === 'light' ? sun : moon} alt=""/>
                         </button>
                     </nav>
                 </div>

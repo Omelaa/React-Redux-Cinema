@@ -1,6 +1,16 @@
+import css from './NotFoundPage.module.scss';
+
 const NotFoundPage = () => {
     return (
-        <h1>Not found</h1>
+        <div className={css.found__wrapper}>
+            <span className={css.found__404}>404</span>
+            <span className={css.found__not}>Not Found</span>
+            <div>
+                <p>
+                    The resource requested could not be found on this server!
+                </p>
+            </div>
+        </div>
     );
 };
 

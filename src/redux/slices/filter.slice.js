@@ -1,13 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-
 const initialState = {
     searchValue: '',
     totalPages: 0,
     currentPage: 1,
     currentGenre: 0
 };
-
 
 const filterSlice = createSlice({
     name: 'filterSlice',

@@ -1,0 +1,19 @@
+
+.found {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    color: gray;
+  }
+
+  &__404 {
+    font-size: 80px;
+  }
+
+  &__not {
+    font-size: 32px;
+  }
+}

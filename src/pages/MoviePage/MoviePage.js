@@ -34,7 +34,7 @@ const MoviePage = () => {
         };
         fetchMovie();
         fetchVideo();
-    }, [id]);
+    }, [id, movie, video]);
 
     if (!movie) {
         return 'loading...'
@@ -93,4 +93,6 @@ const MoviePage = () => {
         </>
     );
 };
+
+
 export {MoviePage};

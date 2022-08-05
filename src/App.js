@@ -1,8 +1,8 @@
 import {Route, Routes} from 'react-router-dom'
+import useLocalStorage from "use-local-storage";
 
 import {MainLayout} from "./layout";
 import {MoviePage, MoviesPage, NotFoundPage} from "./pages";
-import useLocalStorage from "use-local-storage";
 
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
     }
+
     return (
         <>
             <body data-theme={theme}>

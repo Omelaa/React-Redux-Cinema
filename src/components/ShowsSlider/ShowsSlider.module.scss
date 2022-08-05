@@ -34,6 +34,10 @@
     height: 735px;
     background-size: cover;
     padding: 15px;
+
+    &:hover{
+      opacity: 1;
+    }
   }
 
   &__skeleton{

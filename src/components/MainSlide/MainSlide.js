@@ -1,8 +1,9 @@
-import {RatingForMovie} from "../RatingForMovie/RatingForMovie";
+import {Link} from "react-router-dom";
 
 import css from "../MainSlider/MainSlider.module.scss";
+
 import {GenreBadge} from "../GenreBadge/GenreBadge";
-import {Link} from "react-router-dom";
+import {RatingForMovie} from "../RatingForMovie/RatingForMovie";
 
 const MainSlide = ({movie: {id, backdrop_path, original_title, overview, vote_average, genre_ids}, genres}) => {
     const img = `https://image.tmdb.org/t/p/original/${backdrop_path}`;

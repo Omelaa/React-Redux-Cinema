@@ -8,8 +8,8 @@ import {Search} from "../Search/Search";
 import {filterActions} from "../../redux";
 import {Skeleton} from "../Skeleton/Skeleton";
 import {MovieCard} from "../MovieCard/MovieCard";
-import {moviesCategories, movieService} from "../../services";
 import {GenresFilter} from "../GenresFilter/GenresFilter";
+import {moviesCategories, movieService} from "../../services";
 
 const MoviesList = () => {
     const dispatch = useDispatch();

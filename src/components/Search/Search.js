@@ -20,8 +20,7 @@ const Search = () => {
     const onChangeInput = (event) => {
         setValueIn(event.target.value);
         dispatch(filterActions.setSearchValue(event.target.value));
-    }
-
+    };
 
     return (
         <label className={css.search} style={{display: "flex"}}>

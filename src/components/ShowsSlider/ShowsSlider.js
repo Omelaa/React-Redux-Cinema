@@ -5,10 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 
 import css from "./ShowsSlider.module.scss";
 
+import {Skeleton} from "../Skeleton/Skeleton";
 import {moviesCategories} from "../../services";
 import {MovieCard} from "../MovieCard/MovieCard";
 import {genreActions, movieActions} from "../../redux";
-import {Skeleton} from "../Skeleton/Skeleton";
 
 const ShowsSlider = () => {
     const dispatch = useDispatch();
@@ -25,9 +25,9 @@ const ShowsSlider = () => {
     return (
         <section className={css.shows}>
             <div className={css.container}>
-                <a className={css.category} href="#">
+                <div className={css.category}>
                     Now playing
-                </a>
+                </div>
                 <ul className={`${css.shows__movies} ${css.releases__movies}`}>
                     <Swiper
                         loop={true}

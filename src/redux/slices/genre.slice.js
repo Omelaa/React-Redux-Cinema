@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {genreService} from "../../services";
 
+import {genreService} from "../../services";
 
 const initialState = {
     genres: []
@@ -18,7 +18,6 @@ const getAll = createAsyncThunk(
     }
 );
 
-
 const genreSlice = createSlice({
     name: 'genreSlice',
     initialState,
@@ -31,7 +30,7 @@ const genreSlice = createSlice({
     }
 });
 
-const {reducer: genreReducer, actions:{}} = genreSlice;
+const {reducer: genreReducer} = genreSlice;
 
 const genreActions = {
     getAll

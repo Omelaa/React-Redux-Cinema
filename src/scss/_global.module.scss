@@ -70,28 +70,6 @@ button {
   display: flex;
   align-items: center;
   transition: opacity 0.5s;
-
-  &::after {
-    content: '';
-    width: 8px;
-    left: 15px;
-    top: 1px;
-    height: 12px;
-    position: relative;
-    transition: transform 0.5s;
-    background-repeat: no-repeat;
-    background-image: url("../../src/assets/images/icons/arrow.svg");
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    opacity: 0.5;
-
-    &::after {
-      transform: translateX(5px);
-    }
-  }
 }
 
 .rating {

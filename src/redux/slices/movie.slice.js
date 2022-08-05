@@ -20,6 +20,7 @@ const getAllTopRate = createAsyncThunk(
         }
     }
 );
+
 const getAllNowPlaying = createAsyncThunk(
     'movieSlice/getAllNowPlaying',
     async ({moviesType}, {rejectWithValue}) => {
@@ -31,6 +32,7 @@ const getAllNowPlaying = createAsyncThunk(
         }
     }
 );
+
 const getAllUpcoming = createAsyncThunk(
     'movieSlice/getAllUpcoming',
     async ({moviesType}, {rejectWithValue}) => {
@@ -42,18 +44,6 @@ const getAllUpcoming = createAsyncThunk(
         }
     }
 );
-//
-// const searchMovies = createAsyncThunk(
-//     'movieSlice/searchMovies',
-//     async ({searchValue}, {rejectWithValue}) => {
-//         try {
-//             const {data} = await movieService.search(searchValue);
-//             return data;
-//         } catch (e) {
-//             return rejectWithValue(e.response.data);
-//         }
-//     }
-// )
 
 const movieSlice = createSlice({
     name: 'movieSlice',
@@ -91,14 +81,11 @@ const movieSlice = createSlice({
             .addCase(getAllUpcoming.rejected, (state) => {
                 state.isLoading = false;
             })
-        // .addCase(searchMovies.fulfilled, (state, action) => {
-        //     state.foundMovies = action.payload;
-        // })
     }
 });
 
 
-const {reducer: movieReducer, actions: {}} = movieSlice;
+const {reducer: movieReducer} = movieSlice;
 
 const movieActions = {
     getAllNowPlaying,

@@ -30,7 +30,7 @@ const ReleasesSlider = () => {
     return (
         <section className={css.releases}>
             <div className={css.container}>
-                <a className={css.category} href={'#'}>New releases</a>
+                <div className={css.category}>New releases</div>
                 <ul className={css.releases__movies}>
                     <Swiper
                         slidesPerView={5.5}
@@ -46,7 +46,7 @@ const ReleasesSlider = () => {
                             genres && results && results.map((movie) =>
                                 <SwiperSlide key={movie.id} virtualIndex={movie.id}>
                                     {isLoading ?
-                                        <Skeleton key={movie.id}  amount={1} styleCard={css.releases__skeleton}/>
+                                        <Skeleton key={movie.id} amount={1} styleCard={css.releases__skeleton}/>
                                         :
                                         <MovieCard key={movie.id} movie={movie} genres={genres.genres}/>
                                     }

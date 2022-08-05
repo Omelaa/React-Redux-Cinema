@@ -8,10 +8,10 @@ import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import css from "./MainSlider.module.scss";
 
+import {Skeleton} from "../Skeleton/Skeleton";
 import {moviesCategories} from "../../services";
 import {MainSlide} from "../MainSlide/MainSlide";
 import {genreActions, movieActions} from "../../redux";
-import {Skeleton} from "../Skeleton/Skeleton";
 
 const MainSlider = () => {
     const dispatch = useDispatch();
